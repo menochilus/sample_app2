@@ -12,5 +12,9 @@
 require 'spec_helper'
 
 describe User do
-  pending "add some examples to (or delete) #{__FILE__}"
+	before { @user = User.new(name: "Example User", email: "user@example.com") }
+	subject { @user }
+	#その属性が存在するかどうかチェック（例えば、:foobarという属性は存在しない）
+	it { should respond_to(:name) }
+	it { should respond_to(:email) }
 end
