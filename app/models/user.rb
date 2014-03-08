@@ -11,4 +11,8 @@
 
 class User < ActiveRecord::Base
   attr_accessible :email, :name
+
+  #blank?メソッドで中身があるかどうかチェック、存在性の検証
+  validates :name, presence: true
+  validates :email, presence: true
 end
