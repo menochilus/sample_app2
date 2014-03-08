@@ -15,5 +15,8 @@ class User < ActiveRecord::Base
   #presence:blank?メソッドで中身があるかどうかチェック、存在性の検証
   #length:長さのチェック
   validates :name, presence: true, length: { maximum: 50 }
-  validates :email, presence: true
+  #VALID_EMAIL_REGEX：定数、大文字で始まる名前は定数を意味する
+  #このパターンに一致するアドレスだけ有効となることをチェック	
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX }
 end

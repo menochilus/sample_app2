@@ -36,8 +36,36 @@ describe User do
 		it { should_not be_valid }
 	end
 
+	#長さの検証
 	describe "when name is too long" do
 		before { @user.name = "a" * 51 }
 		it { should_not be_valid }
 	end
+
+	#emailのフォーマットをチェック、正規表現の指定が間違ってると失敗するはず
+	describe "when email format is valid" do
+		it "should be valid" do
+			addresses = %w[user@foo.COM A_US-ER@f.b.org first.last@foo.jp a+b@baz.cn]
+			addresses.each do |valid_address|
+				@user.email = valid_address
+				@user.should be_valid
+			end
+		end
+	end
+
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
