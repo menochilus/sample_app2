@@ -13,7 +13,8 @@ require 'spec_helper'
 
 describe User do
 	before do
-		@user = User.new(name: "Example User", email: "user@example.com")
+		@user = User.new(name: "Example User", email: "user@example.com",
+						 password: "foobar", password_confirmation: "foobar")
 	end
 
 	subject { @user }
@@ -21,6 +22,9 @@ describe User do
 	#その属性が存在するかどうかチェック（例えば、:foobarという属性は存在しない）
 	it { should respond_to(:name) }
 	it { should respond_to(:email) }
+	it { should respond_to(:password_digest) }
+	it { should respond_to(:password) }
+	it { should respond_to(:password_confirmation) }
 
 	it { should be_valid }
 
@@ -30,9 +34,24 @@ describe User do
 		before { @user.name = " " }
 		it { should_not be_valid }
 	end
-
 	describe "when email is not present" do
 		before { @user.email = " " }
+		it { should_not be_valid }
+	end
+	describe "when password is not present" do
+		before { @user.password = @user.password_confirmation = " " }
+		it { should_not be_valid }
+	end
+
+	#パスワードとパスワードの確認が一致するかどうあチェック
+	describe "when password doesn't match confirmation" do
+		before { @user.password_confirmation = "mismatch" }
+		it { should_not be_valid }
+	end
+
+	#パスワードの確認がnillの場合にエラーとなるかチェック
+	describe "when password confirmation is nill" do
+		before { @user.password_confirmation = nill }
 		it { should_not be_valid }
 	end
 
