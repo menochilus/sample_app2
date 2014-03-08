@@ -12,7 +12,8 @@
 class User < ActiveRecord::Base
   attr_accessible :email, :name
 
-  #blank?メソッドで中身があるかどうかチェック、存在性の検証
-  validates :name, presence: true
+  #presence:blank?メソッドで中身があるかどうかチェック、存在性の検証
+  #length:長さのチェック
+  validates :name, presence: true, length: { maximum: 50 }
   validates :email, presence: true
 end
