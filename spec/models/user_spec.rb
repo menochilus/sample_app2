@@ -115,6 +115,12 @@ describe User do
 		end
 	end
 
+	#パスワードが６文字以上であること
+	describe "with a password that's too short" do
+		before { @user.password = @user.password_confirmation = "a" * 5 }
+		it { should be_invalid }
+	end
+
 end
 
 
