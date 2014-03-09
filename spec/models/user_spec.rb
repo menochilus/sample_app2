@@ -84,6 +84,37 @@ describe User do
 		it { should_not be_valid }
 	end
 
+#############################################################################
+	#authenticateメソッドによって認証されればユーザーが返され、
+	#認証されない場合はfalseが返される
+	#authenticateメソッドの結果としてUserオブジェクトが応答されればok
+	it { should respond_to(:authenticate) }
+
+	describe "return value of authenticate method" do
+		#dbに事前に保存することでfind_by_emailメソッドが動作するようになる
+		before { @user.save }
+
+		#found_user:emailで検索した結果のユーザー（つまり@user）を格納
+		let(:found_user) { User.find_by_email(@user.email) }
+
+		#found_user.authenticate(@user.password):入力したパスワードが
+		#dbのパスワードと一致していればそのユーザーを返す
+		#一致しなければfalseを返す
+		#つまり"@user == @user"になってればok
+		describe "with valid password" do
+			it { should == found_user.authenticate(@user.password) }
+		end
+
+		#found_user.authenticate("invalid"):falseを返却
+		#"@user == false"となる
+		describe "with invalid password" do
+			let(:user_for_invalid_password) { found_user.authenticate("invalid") }
+			it { should_not == user_for_invalid_password }
+			#specify:itと同じ
+			specify { user_for_invalid_password.should be_false }
+		end
+	end
+
 end
 
 
