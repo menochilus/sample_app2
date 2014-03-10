@@ -10,7 +10,8 @@
 #
 
 class User < ActiveRecord::Base
-  attr_accessible :email, :name
+  attr_accessible :email, :name, :password, :password_confirmation
+  has_secure_password
 
   #email属性を小文字にして一意性を保証する	
   before_save { |user| user.email = email.downcase }
@@ -18,6 +19,8 @@ class User < ActiveRecord::Base
   #presence:blank?メソッドで中身があるかどうかチェック、存在性の検証
   #length:長さのチェック
   validates :name, presence: true, length: { maximum: 50 }
+  validates :password, presence: true, length: { minimum: 6 }
+  validates :password_confirmation, presence: true
   #VALID_EMAIL_REGEX：定数、大文字で始まる名前は定数を意味する
   #format:パターンに一致するアドレスだけ有効となることをチェック
   #uiqueness:一意性チェック

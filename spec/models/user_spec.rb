@@ -50,8 +50,8 @@ describe User do
 	end
 
 	#パスワードの確認がnillの場合にエラーとなるかチェック
-	describe "when password confirmation is nill" do
-		before { @user.password_confirmation = nill }
+	describe "when password confirmation is nil" do
+		before { @user.password_confirmation = nil }
 		it { should_not be_valid }
 	end
 
