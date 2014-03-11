@@ -14,7 +14,8 @@ class User < ActiveRecord::Base
   has_secure_password
 
   #email属性を小文字にして一意性を保証する	
-  before_save { |user| user.email = email.downcase }
+  #before_save { |user| user.email = email.downcase }
+  before_save { email.downcase! }
 
   #presence:blank?メソッドで中身があるかどうかチェック、存在性の検証
   #length:長さのチェック

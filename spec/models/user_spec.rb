@@ -72,6 +72,16 @@ describe User do
 		end
 	end
 
+	#小文字変換のテスト
+	describe "email address with mixed case" do
+		let(:mixed_case_email) { "Foo@ExAMPle.CoM" }
+		it "should be saved as all lower-case" do
+			@user.email = mixed_case_email
+			@user.save
+			@user.reload.email.should == mixed_case_email.downcase
+		end
+	end
+
 	#同じアドレスを登録しようとしたときにvalidate:falseになればok
 	#大文字小文字を区別していないこともチェック
 	describe "when email address is already taken" do
