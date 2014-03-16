@@ -10,6 +10,18 @@
 	<body>
 	  <%= render 'layouts/header' %>
 	  <div class="container">
+	  	<!--
+	  		flash[:success] = "Welcome to the Sample App!"とする場合、
+	  		<div class="alert alert-success">Welcome to the Sample App!</div>
+	  		となる
+	  		flashの内容は各コントローラーで設定（users_controller.rbなど）
+	  	-->
+	  	<% flash.each do |key, value| %>
+	  		<div class="alert alert-<%= key %>">
+	  			<%= value %>
+	  		</div>
+	  	<% end %>
+	  	<!-- ここにusersの各ページの内容を表示する。（new.html.erbなど） -->
 	    <%= yield %>
 	    <%= render 'layouts/footer' %>
 	    <%= debug(params) if Rails.env.development? %>
