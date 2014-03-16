@@ -5,6 +5,7 @@
 	<div class="span6 offset3">
 		<%= form_for(@user) do |f| %>
 
+			<!-- 入力エラーのときのエラーメッセージを出力→_error_message.html.erb -->
 			<%= render 'shared/error_messages' %>
 
 			<%= f.label :name %>
