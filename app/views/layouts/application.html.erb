@@ -17,9 +17,12 @@
 	  		flashの内容は各コントローラーで設定（users_controller.rbなど）
 	  	-->
 	  	<% flash.each do |key, value| %>
+	  		<%= content_tag(:div, value, class: "alert alert-#{key}") %>
+	  		<!--
 	  		<div class="alert alert-<%= key %>">
 	  			<%= value %>
 	  		</div>
+			-->
 	  	<% end %>
 	  	<!-- ここにusersの各ページの内容を表示する。（new.html.erbなど） -->
 	    <%= yield %>

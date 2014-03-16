@@ -1,5 +1,12 @@
 # Sample localization file for English. Add more files in this directory for other locales.
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
+#パスワードがない場合のエラーメッセージを
+#“Password digest can’t be blank”から
+#“Password can’t be blank” に置き換える。
 en:
-  hello: "Hello world"
+  activerecord:
+    attributes:
+      user:
+        password_digest: "Password"
+  #hello: "Hello world"
