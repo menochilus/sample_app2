@@ -16,6 +16,8 @@ class User < ActiveRecord::Base
   #email属性を小文字にして一意性を保証する	
   #before_save { |user| user.email = email.downcase }
   before_save { email.downcase! }
+  #remember_tokenを生成（ユーザーが保存される直前）
+  before_save :create_remember_token
 
   #presence:blank?メソッドで中身があるかどうかチェック、存在性の検証
   #length:長さのチェック
@@ -30,4 +32,14 @@ class User < ActiveRecord::Base
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },
   					uniqueness: { case_sensitive: false }
+
+  private
+
+    def create_remember_token
+      #Ruby標準ライブラリのSecureRandomモジュールにある
+      #urlsafe_base64メソッドを使用して記憶トークンをカスタム生成
+      #長さ16のランダムな文字列を返す
+      self.remember_token = SecureRandom.urlsafe_base64
+    end
+    
 end

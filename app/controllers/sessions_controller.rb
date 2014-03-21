@@ -1,4 +1,14 @@
 class SessionsController < ApplicationController
+	protect_from_forgery
+	#ヘルパーはデフォルトではすべてのビューで使用できるが、
+	#コントローラーでは使用できない
+	#よって明示的にインクルードする必要がある
+	include SessionsHelper
+
+	def handle_unverified_request
+		sign_out
+		super
+	end
 
 	def new
 	end
@@ -11,8 +21,9 @@ class SessionsController < ApplicationController
 		#userのパスワードダイジェストと比較して認証する。
 		#認証okならユーザを返す。ngならfalse
 		if user && user.authenticate(params[:session][:password])
+			sign_in user
 			#ユーザー表示ページに移動
-	  		redirect_to user_path(user)
+	  		redirect_to user
 		else
 			#flash[:error]だと、new画面から他の画面に飛んだ時にエラーメッセージが
 			#残ったままになってしまう
