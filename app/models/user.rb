@@ -33,13 +33,15 @@ class User < ActiveRecord::Base
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },
   					uniqueness: { case_sensitive: false }
 
+  #Userモデルの内部でしか使用しない
   private
 
     def create_remember_token
       #Ruby標準ライブラリのSecureRandomモジュールにある
       #urlsafe_base64メソッドを使用して記憶トークンをカスタム生成
       #長さ16のランダムな文字列を返す
+      #selfがないとローカル変数として作成されてしまう
       self.remember_token = SecureRandom.urlsafe_base64
     end
-    
+
 end
