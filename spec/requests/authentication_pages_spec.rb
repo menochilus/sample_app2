@@ -17,7 +17,12 @@ describe "Authentication" do
 
 		describe "with invalid information" do		
 			it { should have_selector('title', text: 'Sign in') }
-			it { should have_selector('div.alert.alert_error', text: 'Invalid') }
+			it { should have_selector('div.alert.alert-error', text: 'Invalid') }
+
+			describe "" do
+				before { click_link "Home" }
+				it { should_not have_selector('div.alert.alert-error') }
+			end
 		end
 
 		describe "with valid information" do
