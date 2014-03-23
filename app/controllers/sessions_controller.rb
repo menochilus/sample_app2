@@ -21,6 +21,7 @@ class SessionsController < ApplicationController
 		#userのパスワードダイジェストと比較して認証する。
 		#認証okならユーザを返す。ngならfalse
 		if user && user.authenticate(params[:session][:password])
+			#session_helperのsigninメソッド
 			sign_in user
 			#ユーザー表示ページに移動
 	  		redirect_to user
