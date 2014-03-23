@@ -18,7 +18,10 @@ describe "Authentication" do
 
 		describe "with invalid information" do		
 			it { should have_selector('title', text: 'Sign in') }
-			it { should have_selector('div.alert.alert-error', text: 'Invalid') }
+			#it { should have_selector('div.alert.alert-error', text: 'Invalid') }
+			#utilities.rbに定義
+			it { should have_error_message('Invalid') }
+
 
 			describe "after visiting another page" do
 				before { click_link "Home" }
@@ -29,13 +32,15 @@ describe "Authentication" do
 
 		describe "with valid information" do
 			let(:user) { FactoryGirl.create(:user) }
-			before do
-				#大文字小文字を区別しないデータベースが
-				#使用されている場合であってもユーザーを確実に検索できるように配慮してある
-				fill_in "Email",    with: user.email.upcase
-				fill_in "Password", with: user.password
-			    click_button "Sign in"
-			end
+			#before do
+			#	#大文字小文字を区別しないデータベースが
+			#	#使用されている場合であってもユーザーを確実に検索できるように配慮してある
+			#	fill_in "Email",    with: user.email.upcase
+			#	fill_in "Password", with: user.password
+			#	click_button "Sign in"
+			#end
+			#utilities.rbに定義
+			before { valid_signin(user) }
 
 			it { should     have_selector('title', text: user.name) }
 			it { should     have_selector('h1',    text: user.name) }
