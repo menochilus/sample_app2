@@ -56,6 +56,8 @@ describe "User Pages" do
 				it { should have_selector('title', text: user.name) }
 				#flash[:success] = "Welcome to the Sample App!"の確認
 				it { should have_selector('div.alert.alert-success', text: 'Welcome') }
+				it { should have_link('Sign out') }
+
 			end
 
 		end
