@@ -15,12 +15,12 @@ class SessionsController < ApplicationController
 
 	def create
 		#user : 入力したメールアドレスでdbを検索し、あればそのユーザを格納。なければfalse
-		user = User.find_by_email(params[:session][:email].downcase)
+		user = User.find_by_email(params[:email].downcase)
 		#userとuser.au〜がそれぞれtrueかどうかを判定
 		#user.au~ ; 入力したパスワードをハッシュ化して、
 		#userのパスワードダイジェストと比較して認証する。
 		#認証okならユーザを返す。ngならfalse
-		if user && user.authenticate(params[:session][:password])
+		if user && user.authenticate(params[:password])
 			#session_helperのsign_inメソッド
 			sign_in user
 			#ユーザー表示ページに移動
