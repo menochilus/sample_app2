@@ -13,6 +13,8 @@ def valid_signin(user)
 	fill_in "Email",    with: user.email.upcase
 	fill_in "Password", with: user.password
 	click_button "Sign in"
+	#Capybaraを使用していない場合にもサインインする。
+	cookies[:remember_token] = user.remember_token
 end
 
 def valid_signup
@@ -20,6 +22,13 @@ def valid_signup
 	fill_in "Email",        with: "user@example.com"
 	fill_in "Password",     with: "foobar"
 	fill_in "Confirmation", with: "foobar"
+end
+
+def valid_update
+	fill_in "Name",         with: "New Name"
+	fill_in "Email",        with: "new@example.com"
+	fill_in "Password",     with: "foobar"
+	fill_in "Confirm Password", with: "foobar"
 end
 
 Rspec::Matchers.define :have_success_message do |message|
