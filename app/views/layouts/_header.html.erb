@@ -16,7 +16,7 @@
 	        	    	<ul class="dropdown-menu">
 		        	    	<!-- current_userのところはuser_path(profile)	に自動的に変換される -->
 		            		<li><%= link_to "Profile", current_user %></li>
-		            		<li><%= link_to "Settings", edit_user_path(@user) %></li>
+		            		<li><%= link_to "Settings", edit_user_path(@user) %></li> 
 		            		<li class="divider"></li>
 		            		<li><%= link_to "Sign out", signout_path, method: "delete" %></li>
 			            </ul>
