@@ -1,26 +1,27 @@
 class UsersController < ApplicationController
+  before_filter :signed_in_user, only: [:edit, :update]
 
   include SessionsHelper
 
   def show
-  	@user = User.find(params[:id])
+    @user = User.find(params[:id])
   end
 
   def new
-  	@user = User.new
+    @user = User.new
   end
 
   def create
-  	@user = User.new(params[:user])
-  	if @user.save
-  		sign_in @user
-  		flash[:success] = "Welcome to the Sample App!"
-  		#ユーザー表示ページに移動
-  		redirect_to @user
-  	else
-  		#入力エラーのときはnew.html.erbに飛ばす
-  		render 'new'
-  	end
+    @user = User.new(params[:user])
+    if @user.save
+      sign_in @user
+      flash[:success] = "Welcome to the Sample App!"
+      #ユーザー表示ページに移動
+      redirect_to @user
+    else
+      #入力エラーのときはnew.html.erbに飛ばす
+      render 'new'
+    end
   end
 
   def edit
@@ -37,5 +38,11 @@ class UsersController < ApplicationController
       render 'edit'
     end
   end
+
+  private
+
+    def signed_in_user
+      redirect_to signin_url, notice: "Please sign in." unless signed_in?
+    end
 
 end
