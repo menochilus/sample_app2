@@ -25,10 +25,11 @@ def valid_signup
 end
 
 def valid_update
-	fill_in "Name",         with: "New Name"
-	fill_in "Email",        with: "new@example.com"
-	fill_in "Password",     with: "foobar"
-	fill_in "Confirm Password", with: "foobar"
+	fill_in "Name",         with: new_name
+	fill_in "Email",        with: new_email
+	fill_in "Password",     with: user.password
+	fill_in "Confirm Password", with: user.password
+	click_button submit
 end
 
 Rspec::Matchers.define :have_success_message do |message|

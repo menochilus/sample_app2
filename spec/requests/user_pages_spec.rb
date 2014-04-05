@@ -95,14 +95,15 @@ describe "User Pages" do
 		end
 
 		describe "with valid information" do
+			let(:new_name)  { "New Name" }
+			let(:new_email) { "new@example.com" }
 			before { valid_update }
-			before { click_button submit }
 
-			it { should have_title('New Name') }
+			it { should have_title(new_name) }
 			it { should have_success_message }
 			it { should have_link('Sign out', href: signout_path) }
-			specify { user.reload.name.should  == "New Name" }
-			specify { user.reload.email.should == "new@example.com" }
+			specify { user.reload.name.should  == new_name }
+			specify { user.reload.email.should == new_email }
 		end
 	end
 
